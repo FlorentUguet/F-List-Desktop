@@ -1,11 +1,11 @@
-#include "fmessenger.h"
+#include "fmessengerwidget.h"
 
-FMessenger::FMessenger(QWidget *parent) : QWidget(parent)
+FMessengerWidget::FMessengerWidget(QWidget *parent) : QWidget(parent)
 {
     init();
 }
 
-void FMessenger::init()
+void FMessengerWidget::init()
 {
     //Backend
     this->client = new FClient(QUrl(SERVER_URL_DEBUG), this);
@@ -24,14 +24,14 @@ void FMessenger::init()
     connect(this->client,SIGNAL(connected()),this,SLOT(login()));
 }
 
-void FMessenger::login()
+void FMessengerWidget::login()
 {
     loginWidget = new FLoginWidget(0);
     connect(loginWidget,SIGNAL(loginSuccess(LoginTicket)),this,SLOT(onLoginSuccessful(LoginTicket)));
     loginWidget->show();
 }
 
-void FMessenger::onLoginSuccessful(LoginTicket t)
+void FMessengerWidget::onLoginSuccessful(LoginTicket t)
 {
     delete this->loginWidget;
 

@@ -21,7 +21,7 @@ FMessenger::FMessenger(bool debug, bool secure, QObject *parent) : QObject(paren
     connect(this->client,SIGNAL(messageSent(QString)),this,SIGNAL(commandSent(QString)));
 }
 
-void FMessenger::parse(QString command)
+void FMessenger::process(QString command)
 {
 
 }
