@@ -8,6 +8,8 @@ FLoginClient::FLoginClient(QObject *parent) : QObject(parent)
 
 void FLoginClient::login(const QString user, const QString pass)
 {
+    this->account = user;
+
     QUrlQuery postData;
     postData.addQueryItem("secure", "yes");
     postData.addQueryItem("account", user);
@@ -46,7 +48,7 @@ void FLoginClient::onLoginCompleted(QNetworkReply *reply)
 
     QString response = QString::fromLocal8Bit(reply->readAll());
 
-    bool ok;
+    bool ok = false;
     Json::Value root = JsonUtils::stringToJson(response.toStdString(), &ok);
 
     if(!ok)
@@ -61,7 +63,7 @@ void FLoginClient::onLoginCompleted(QNetworkReply *reply)
     else
     {
         LoginTicket t(root);
-        t.text = response.toStdString();
+        t.account = this->account.toStdString();
 
         emit loginSuccessful(response);
         emit loginSuccessful(t);

@@ -9,7 +9,7 @@ int main(int argc, char *argv[])
 
     //qRegisterMetaType<LoginTicket>("LoginTicket");
 
-    Tests::LoginWidget();
+    Tests::Messenger();
 
     return a.exec();
 }

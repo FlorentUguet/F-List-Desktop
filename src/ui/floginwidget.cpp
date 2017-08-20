@@ -84,10 +84,17 @@ void FLoginWidget::onLoginError(QString error)
     pbLogin->setEnabled(true);
 }
 
-void FLoginWidget::onLoginSuccess(LoginTicket value)
+void FLoginWidget::onLoginSuccess(LoginTicket ticket)
 {
-    QMessageBox::information(this,"Login Successful", QString(value.ticket.c_str()));
-    pbLogin->setEnabled(true);
+    QStringList items;
+
+    for(unsigned i=0; i<ticket.characters.size();i++)
+        items << QString(ticket.characters[i].c_str());
+
+    QString character = QInputDialog::getItem(this,"Character","Select character",items,ticket.defaultCharacterIndex);
+    ticket.selectedCharacter = character.toStdString();
+
+    emit loginSuccess(ticket);
 }
 
 void FLoginWidget::onLoginSuccess(QString string)

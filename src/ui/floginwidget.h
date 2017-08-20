@@ -11,6 +11,7 @@ public:
     FLoginWidget(QWidget *parent = nullptr);
 
 signals:
+    void loginSuccess(LoginTicket value);
 
 public slots:
     void login();

@@ -4,6 +4,16 @@ IDN::IDN() : FCommand("IDN")
 {
     setClientName(CLIENT_NAME);
     setClientVersion(CLIENT_VERSION);
+    this->parameters["method"] = std::string("ticket");
+}
+
+IDN::IDN(std::string account, std::string ticket, std::string character) : FCommand("IDN")
+{
+    setClientName(CLIENT_NAME);
+    setClientVersion(CLIENT_VERSION);
+    this->parameters["method"] = std::string("ticket");
+
+    setData(account,ticket,character);
 }
 
 void IDN::setData(std::string account, std::string ticket, std::string character)

@@ -24,25 +24,39 @@ struct LoginTicket
 {
     std::vector<std::string> characters;
     std::string defaultCharacter;
+    int defaultCharacterIndex;
+
+    std::string account;
     std::string ticket;
-    std::vector< std::vector<std::string> > friends;
+    std::vector<std::vector<std::string>> friends;
     std::vector<std::string> bookmarks;
-    Json::Value root;
-    std::string text;
+
+    std::string selectedCharacter;
 
     LoginTicket(Json::Value root)
     {
         //Characters
-        for(int i=0;i<root["characters"].size();i++)
+        for(unsigned i=0;i<root["characters"].size();i++)
         {
             std::string character = root["characters"][i].asString();
-            characters.push_back(root["characters"][i].asString());
+            characters.push_back(character);
 
             friends.push_back(std::vector<std::string>());
 
-            for(int j=0;j<root["friends"].size();j++)
+            for(unsigned int j=0;j<root["friends"].size();j++)
                 if(root["friends"][j]["dest_name"] == character)
                     friends[i].push_back(root["friends"][j]["source_name"].asString());
+        }
+
+        defaultCharacterIndex = 0;
+
+        for(unsigned i=0; i<characters.size();i++)
+        {
+            if(characters[i] == defaultCharacter)
+            {
+                defaultCharacterIndex = i;
+                break;
+            }
         }
 
 
@@ -53,11 +67,8 @@ struct LoginTicket
         ticket = root["ticket"].asString();
 
         //Bookmarks
-        for(int i=0;i<root["bookmarks"].size();i++)
-        {
+        for(unsigned i=0;i<root["bookmarks"].size();i++)
             bookmarks.push_back(root["bookmarks"][i]["name"].asString());
-        }
-
     }
 };
 
@@ -81,6 +92,7 @@ public slots:
 
 private:
     QNetworkAccessManager *nam;
+    QString account;
 };
 
 #endif // FLOGINCLIENT_H

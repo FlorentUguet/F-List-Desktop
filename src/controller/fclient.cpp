@@ -36,11 +36,13 @@ void FClient::onConnected()
 {
     connect(this->socket,SIGNAL(textMessageReceived(QString)),this,SLOT(onTextMessageReceived(QString)));
     qDebug() << "Connected";
+    emit connected();
 }
 
 void FClient::onDisconnected()
 {
     qDebug() << "Disconnected";
+    emit disconnected();
 }
 
 void FClient::onTextMessageReceived(QString message)
@@ -51,5 +53,11 @@ void FClient::onTextMessageReceived(QString message)
 void FClient::sendMessage(QString message)
 {
     this->socket->sendTextMessage(message);
+    emit messageSent(message);
+}
+
+void FClient::sendCommand(FCommand *command)
+{
+    this->sendMessage(QString(command->toString().c_str()));
 }
 

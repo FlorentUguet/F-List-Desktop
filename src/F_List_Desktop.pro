@@ -39,7 +39,13 @@ SOURCES += \
     ui/floginwidget.cpp \
     tests.cpp \
     utils/jsonutils.cpp \
-    jsoncpp/jsoncpp.cpp
+    jsoncpp/jsoncpp.cpp \
+    ui/fchannelwidget.cpp \
+    model/fmessage.cpp \
+    model/fcharacter.cpp \
+    ui/fconsolewidget.cpp \
+    ui/fmessengerwidget.cpp \
+    controller/fmessenger.cpp
 
 HEADERS += \
         widget.h \
@@ -58,7 +64,11 @@ HEADERS += \
     tests.h \
     utils/jsonutils.h \
     jsoncpp/json/json.h \
-    jsoncpp/json/json-forwards.h
-
-DISTFILES += \
-    json/sconscript
+    jsoncpp/json/json-forwards.h \
+    ui/fchannelwidget.h \
+    model/fmessage.h \
+    model/fcharacter.h \
+    ui/fconsolewidget.h \
+    commands/commands.h \
+    ui/fmessengerwidget.h \
+    controller/fmessenger.h

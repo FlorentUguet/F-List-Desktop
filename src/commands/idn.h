@@ -10,6 +10,7 @@ class IDN : public FCommand
 {
 public:
     IDN();
+    IDN(std::string account, std::string ticket, std::string character);
 
     void setData(std::string account, std::string ticket, std::string character);
     void setClientName(std::string client);

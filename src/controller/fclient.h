@@ -9,6 +9,8 @@
 #include <QObject>
 #include <QtWebSockets/QWebSocket>
 
+#include "commands/commands.h"
+
 class FClient : public QObject
 {
     Q_OBJECT
@@ -17,6 +19,10 @@ public:
 
 signals:
     void messageReceived(QString message);
+    void messageSent(QString message);
+
+    void connected();
+    void disconnected();
 
 public slots:
     void onError(QAbstractSocket::SocketError error);
@@ -24,6 +30,7 @@ public slots:
     void onDisconnected();
     void onTextMessageReceived(QString message);
     void sendMessage(QString message);
+    void sendCommand(FCommand *command);
 
     void open();
     void open(QUrl url);
