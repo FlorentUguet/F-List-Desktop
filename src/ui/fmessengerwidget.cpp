@@ -8,8 +8,8 @@ FMessengerWidget::FMessengerWidget(QWidget *parent) : QWidget(parent)
 void FMessengerWidget::init()
 {
     //Backend
-    this->client = new FClient(QUrl(SERVER_URL_DEBUG), this);
-    this->client->open();
+    this->messenger = new FMessenger(true,false,this);
+    this->messenger->start();
 
     //UI
     this->console = new FConsoleWidget(this);
@@ -18,10 +18,10 @@ void FMessengerWidget::init()
     l->addWidget(this->console);
     setLayout(l);
 
-    connect(this->client,SIGNAL(messageReceived(QString)),this->console,SLOT(commandReceived(QString)));
-    connect(this->client,SIGNAL(messageSent(QString)),this->console,SLOT(commandSent(QString)));
+    connect(this->messenger,SIGNAL(commandReceived(QString)),this->console,SLOT(commandReceived(QString)));
+    connect(this->messenger,SIGNAL(commandSent(QString)),this->console,SLOT(commandSent(QString)));
 
-    connect(this->client,SIGNAL(connected()),this,SLOT(login()));
+    connect(this->messenger,SIGNAL(connected()),this,SLOT(login()));
 }
 
 void FMessengerWidget::login()
@@ -34,8 +34,5 @@ void FMessengerWidget::login()
 void FMessengerWidget::onLoginSuccessful(LoginTicket t)
 {
     delete this->loginWidget;
-
-    IDN* command = new IDN(t.account,t.ticket,t.selectedCharacter);
-
-    client->sendCommand(command);
+    this->messenger->login(t);
 }

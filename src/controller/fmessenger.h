@@ -5,6 +5,7 @@
 #include <QHash>
 
 #include "fclient.h"
+#include "floginclient.h"
 
 class FMessenger : public QObject
 {
@@ -20,12 +21,16 @@ signals:
     void commandReceived(QString command);
 
 public slots:
+    void parseCommand(QString command);
+    void sendPing();
+
+    void start();
+    void stop();
+    void login(LoginTicket t);
 
 private:
-    void process(QString command);
-
     FClient *client;
-    QHash variables;
+    QHash<QString, QVariant> variables;
 };
 
 #endif // FMESSENGER_H

@@ -1,12 +1,13 @@
-#ifndef FMESSENGER_H
-#define FMESSENGER_H
+#ifndef FMESSENGERWIDGET_H
+#define FMESSENGERWIDGET_H
 
 #include <QtWidgets>
 
 #include "floginwidget.h"
 #include "fconsolewidget.h"
 
-#include "controller/fclient.h"
+#include "controller/fmessenger.h"
+#include "commands/commands.h"
 
 class FMessengerWidget : public QWidget
 {
@@ -22,11 +23,11 @@ public slots:
     void onLoginSuccessful(LoginTicket t);
 
 private:
-    FClient *client;
+    FMessenger *messenger;
     FLoginWidget *loginWidget;
 
     //Widgets
     FConsoleWidget *console;
 };
 
-#endif // FMESSENGER_H
+#endif // FMESSENGERWIDGET_H

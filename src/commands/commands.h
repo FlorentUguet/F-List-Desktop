@@ -8,6 +8,4 @@
 #include "cbl.h"
 #include "idn.h"
 
-FCommand *parseCommand();
-
 #endif // COMMANDS_H
